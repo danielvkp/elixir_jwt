@@ -1,0 +1,41 @@
+<button id="login">login</button>
+<button id="url_protegida">url protegida</button>
+
+<script>
+    const data = {
+        email: 'user@example.com',
+        password: 'clave'
+    }
+    const headers = {
+        'Content-Type': 'application/json'
+    }
+
+    const do_login = (data, headers) => {
+        fetch('api/signin', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: headers
+            })
+            .then(res => res.json())
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error('Error:', error))
+    }
+
+    const test_url = headers => {
+        fetch('api/v1/urlprotegida', {
+                method: 'get',
+                headers: headers
+            })
+            .then(res => res.json())
+            .then(response => console.log('Success:', response))
+            .catch(error => console.error('Error:', error))
+    }
+
+    document.getElementById('login').addEventListener('click', () => {
+        do_login(data, headers)
+    })
+
+    document.getElementById('url_protegida').addEventListener('click', () => {
+        test_url(headers)
+    });
+</script>
